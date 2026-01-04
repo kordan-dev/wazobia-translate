@@ -99,25 +99,23 @@ app.post("/api/translate", async (req, res) => {
   }
 });
 
-// 3. TEXT TO SPEECH (With Nigerian Accent Logic)
+// text to speech with nigerian accent logic
 app.post("/api/tts", async (req, res) => {
   const { text, lang } = req.body;
 
-  // LOGIC: Use Specialized TTS for Pidgin/Yoruba if Key exists, otherwise fallback to Gemini
-  // Note: You will need to replace 'https://api.yarngpt.ai/...' with the actual YarnGPT endpoint
+  // Use Specialized TTS for Pidgin/Yoruba if Key exists, otherwise fallback to Gemini
   if ((lang === "pcm" || lang === "yo" || lang === "en") && LOCAL_TTS_API_KEY) {
     try {
       console.log(`Attempting Localized TTS for ${lang}...`);
-      // THIS IS A PLACEHOLDER FOR YARNGPT / NARAKEET / AZURE
       const response = await axios.post(
         "https://yarngpt.ai/api/v1/tts",
         {
           text: text,
-          voice: "Idera", // Example voice IDs
+          voice: "Idera", // yarngpt voice ID
         },
         {
           headers: { Authorization: `Bearer ${LOCAL_TTS_API_KEY}` },
-          responseType: "arraybuffer", // Important for audio files
+          responseType: "arraybuffer", // important for audio files
         }
       );
 
@@ -135,7 +133,7 @@ app.post("/api/tts", async (req, res) => {
     }
   }
 
-  // --- FALLBACK: GEMINI TTS (Neutral Accent) ---
+  // Gemini TTS Fallback
   const voiceName = "Kore";
   const TTS_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${GEMINI_API_KEY}`;
 
