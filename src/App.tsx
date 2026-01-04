@@ -753,7 +753,7 @@ function App() {
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               >
-                LinguaLite
+                WaZoBia Translate
               </h1>
             </div>
 
