@@ -72,12 +72,12 @@ interface IWindow extends Window {
   webkitSpeechRecognition?: new () => ISpeechRecognition;
 }
 
-// --- API CONFIG ---
+// API CONFIG
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:5000";
 
-// --- COMPONENTS ---
+// COMPONENTS
 
-// 1. LanguageSelector
+// LanguageSelector
 interface LanguageSelectorProps {
   sourceLang: string;
   targetLang: string;
