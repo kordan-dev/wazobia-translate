@@ -12,12 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-// Add your YarnGPT or other localized TTS Key here
 const LOCAL_TTS_API_KEY = process.env.LOCAL_TTS_API_KEY;
 
 // --- HELPERS ---
-
-// Gemini returns raw PCM data. We need to add a WAV header to make it playable.
 function createWavHeader(sampleRate, numChannels, bitsPerSample, dataLength) {
   const byteRate = (sampleRate * numChannels * bitsPerSample) / 8;
   const blockAlign = (numChannels * bitsPerSample) / 8;
@@ -61,7 +58,7 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
 
-// 1. STT (Speech to Text)
+//STT (Speech to Text)
 const upload = multer({ storage: multer.memoryStorage() });
 app.post("/api/stt", upload.single("audio"), async (req, res) => {
   res.json({
@@ -69,7 +66,7 @@ app.post("/api/stt", upload.single("audio"), async (req, res) => {
   });
 });
 
-// 2. SMART TRANSLATE
+// SMART TRANSLATE
 app.post("/api/translate", async (req, res) => {
   const { text, source, target } = req.body;
   const langMap = {
